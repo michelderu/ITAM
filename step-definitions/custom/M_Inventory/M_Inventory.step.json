@@ -1,0 +1,22 @@
+{
+  "lang" : "zxx",
+  "name" : "M_Inventory",
+  "description" : "",
+  "type" : "CUSTOM",
+  "version" : 1,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"M_Inventory_SCCM\"])",
+    "targetEntity" : "Inventory",
+    "collections" : [ "M_Inventory", "Inventory" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "sourceCollection" : "M_Inventory_SCCM",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : { },
+  "modulePath" : "/custom-modules/custom/M_Inventory/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

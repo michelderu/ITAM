@@ -1,0 +1,22 @@
+{
+  "lang" : "zxx",
+  "name" : "M_Metering",
+  "description" : "",
+  "type" : "CUSTOM",
+  "version" : 1,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"I_Metering\"])",
+    "targetEntity" : "Metering",
+    "collections" : [ "M_Metering", "Metering" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "sourceCollection" : "I_Metering",
+    "outputFormat" : "json",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : { },
+  "modulePath" : "/custom-modules/custom/M_Metering/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

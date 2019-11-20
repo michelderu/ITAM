@@ -1,0 +1,76 @@
+{
+  "info" : {
+    "title" : "Metering",
+    "version" : "0.0.1",
+    "baseUri" : "http://example.org/",
+    "description" : "Normalised view of metering information"
+  },
+  "definitions" : {
+    "Metering" : {
+      "primaryKey" : "id",
+      "required" : [ ],
+      "pii" : [ ],
+      "elementRangeIndex" : [ ],
+      "rangeIndex" : [ ],
+      "wordLexicon" : [ ],
+      "properties" : {
+        "docid" : {
+          "datatype" : "string",
+          "description" : "URI reference to document",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "id" : {
+          "datatype" : "string",
+          "description" : "A generated unique ID",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "process" : {
+          "datatype" : "string",
+          "description" : "Process name",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "publisher" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "product" : {
+          "datatype" : "string",
+          "description" : "Full product name",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "version" : {
+          "datatype" : "string",
+          "description" : "Full version",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "major" : {
+          "datatype" : "string",
+          "description" : "Deduced major version number",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "minor" : {
+          "datatype" : "string",
+          "description" : "Deduced minor version number",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "computer" : {
+          "datatype" : "string",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "username" : {
+          "datatype" : "string",
+          "description" : "Normalized username",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "last_used" : {
+          "datatype" : "date",
+          "description" : "Last used date"
+        },
+        "relevant" : {
+          "datatype" : "boolean",
+          "description" : "Relevant according to reference data"
+        }
+      }
+    }
+  }
+}

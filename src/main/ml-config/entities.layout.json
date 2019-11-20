@@ -1,0 +1,23 @@
+{
+  "Metering" : {
+    "x" : 149,
+    "y" : 93,
+    "width" : 362,
+    "height" : 365,
+    "vertices" : { }
+  },
+  "Inventory" : {
+    "x" : 1008,
+    "y" : 92,
+    "width" : 410,
+    "height" : 456,
+    "vertices" : { }
+  },
+  "Inventory_SCCM" : {
+    "x" : 565,
+    "y" : 92,
+    "width" : 387,
+    "height" : 387,
+    "vertices" : { }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "info" : {
+    "title" : "Inventory_SCCM",
+    "version" : "0.0.1",
+    "baseUri" : "http://example.org/",
+    "description" : "Intermediate view of inventory information based on the inventory data and relevant products"
+  },
+  "definitions" : {
+    "Inventory_SCCM" : {
+      "primaryKey" : "id",
+      "required" : [ ],
+      "pii" : [ ],
+      "elementRangeIndex" : [ ],
+      "rangeIndex" : [ ],
+      "wordLexicon" : [ ],
+      "properties" : {
+        "docid" : {
+          "datatype" : "string",
+          "description" : "URI reference to document",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "id" : {
+          "datatype" : "string",
+          "description" : "Unique package ID",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "username" : {
+          "datatype" : "string",
+          "description" : "Normalized username",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "publisher" : {
+          "datatype" : "string",
+          "description" : "Publisher name from inventory information",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "product" : {
+          "datatype" : "string",
+          "description" : "Product name from inventory information",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "version" : {
+          "datatype" : "string",
+          "description" : "Version from inventory information",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "scan_date" : {
+          "datatype" : "date"
+        },
+        "install_date" : {
+          "datatype" : "date",
+          "description" : "Normalized install date based on install date or timestamp"
+        },
+        "relevant" : {
+          "datatype" : "boolean",
+          "description" : "Is it a relevant package according to relevant products reference data"
+        },
+        "ref_publisher" : {
+          "datatype" : "string",
+          "description" : "Publisher name from relevant products reference data",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "ref_product" : {
+          "datatype" : "string",
+          "description" : "Product name from relevant products reference data",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "major" : {
+          "datatype" : "string",
+          "description" : "Deduced major version from inventory information",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "minor" : {
+          "datatype" : "string",
+          "description" : "Deduced minor version from inventory information",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        }
+      }
+    }
+  }
+}
