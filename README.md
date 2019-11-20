@@ -36,7 +36,7 @@ java -jar marklogic-datahub-5.0.4.war
 Now point your browser to http://localhost:8080 and finish the installation using the ITAM project root directory (you might have to uninstall/re-install).  
 
 ### Run the ITAM analysis
-First, click 'Settings' and turn of 'Flow tracing'. Or use the gradle command `gradle hubDisableTracing`.
+First, click 'Settings' and turn of 'Flow tracing'. Or use the gradle command `gradle hubDisableTracing`.  
 Now, click 'Flows' and start the flows.
 
 
