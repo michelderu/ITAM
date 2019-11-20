@@ -77,17 +77,17 @@
         },
         "norm_publisher" : {
           "datatype" : "string",
-          "description" : "Publisher name from reference data (IP)",
+          "description" : "Publisher name from inventory reference data (IP)",
           "collation" : "http://marklogic.com/collation/codepoint"
         },
         "norm_product" : {
           "datatype" : "string",
-          "description" : "Product name from reference data (IP)",
+          "description" : "Product name from inventory reference data (IP)",
           "collation" : "http://marklogic.com/collation/codepoint"
         },
         "license" : {
           "datatype" : "boolean",
-          "description" : "Is this package licensable according to reference data (IP)",
+          "description" : "Is this package licensable according to inventory reference data (IP)",
           "collation" : "http://marklogic.com/collation/codepoint"
         }
       }

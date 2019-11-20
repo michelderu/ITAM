@@ -1,0 +1,1 @@
+Place the ;-separated inventory reference data (IP) in here (v_ref_products.csv)
