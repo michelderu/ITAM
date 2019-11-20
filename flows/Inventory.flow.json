@@ -4,7 +4,9 @@
   "batchSize" : 100,
   "threadCount" : 4,
   "stopOnError" : false,
-  "options" : { },
+  "options" : {
+    "provenanceGranularityLevel" : "off"
+  },
   "version" : 0,
   "steps" : {
     "1" : {
@@ -147,9 +149,9 @@
         "targetDatabase" : "data-hub-FINAL"
       },
       "customHook" : null,
-      "retryLimit" : null,
-      "batchSize" : null,
-      "threadCount" : null,
+      "retryLimit" : 0,
+      "batchSize" : 0,
+      "threadCount" : 0,
       "stepDefinitionName" : "M_Inventory",
       "stepDefinitionType" : "CUSTOM",
       "modulePath" : "/custom-modules/custom/M_Inventory/main.sjs",
