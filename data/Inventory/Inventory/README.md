@@ -1,0 +1,1 @@
+Place the ;-separated inventory data in here (inventory.csv)
