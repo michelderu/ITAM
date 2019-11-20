@@ -2,12 +2,12 @@
 *.csv
 *.xls
 *.xlsx
+.DS_Store
 /MarkLogic/
 /build/
 node_modules/
 /.gradle/
 /.ipynb_checkpoints/
 /.tmp/
-.DS_Store/
 __pycache__/
 /Source/
