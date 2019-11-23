@@ -3,6 +3,8 @@
 *.xls
 *.xlsx
 *.zip
+*.pdf
+*.TIF
 .DS_Store
 /MarkLogic/
 /build/
