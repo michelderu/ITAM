@@ -69,7 +69,7 @@ In the settings for flows, it is possible to define the Thread Count and Batch S
 ## Tuning index settings
 
 ### Tuning Staging database index settings
-Add these settings to `/src/main/hub-internal-config/databases/staging-database.json` to lower the requirements for generic indexing providing around 13% performance increase.
+Add these settings to `src/main/hub-internal-config/databases/staging-database.json` to lower the requirements for generic indexing providing around 13% performance increase.
 ```sh
   "stemmed-searches": "off",
   "word-searches": true,
@@ -85,7 +85,41 @@ Add these settings to `/src/main/hub-internal-config/databases/staging-database.
 
 ### Tuning Staging database for range indexes
 Set some indexes on important elements/properties and use a range query in the code.
-Easiest way to configure the .json files is to make an adjustment in the admin interface of MarkLogic and then find out the json structure using http://localhost:8002/manage/v2/ using `format=json`. Make sure to set the right collation to allow for case-insensitive matches. Range query used in the M_Inventory is https://docs.marklogic.com/cts.jsonPropertyRangeQuery.
+Easiest way to configure the .json files is to make an adjustment in the admin interface of MarkLogic and then find out the json structure using http://localhost:8002/manage/v2/ using `format=json`. Make sure to set the right collation to allow for case-insensitive matches. Range query used in the M_Inventory is https://docs.marklogic.com/cts.jsonPropertyRangeQuery.  
+Range index set in `src/main/hub-internal-config/databases/staging-database.json`:
+```sh
+  "range-element-index": [
+    {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_PRODUCT_ID",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_PUBLISHER",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_PRODUCT",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_VERSION",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }
+  ]
+  ```
 
 ## Ingesting contracts
 In order to ingest and convert contracts to machine reabable (and therefore searchable) text, first the MarkLogic Converters need to be installed.
