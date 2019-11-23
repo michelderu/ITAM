@@ -2,7 +2,7 @@
   "name" : "Metering",
   "description" : "",
   "batchSize" : 100,
-  "threadCount" : 4,
+  "threadCount" : 8,
   "stopOnError" : false,
   "options" : { },
   "version" : 0,

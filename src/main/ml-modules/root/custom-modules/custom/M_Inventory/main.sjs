@@ -99,6 +99,7 @@ function main(content, options) {
 
   let m_norm_publisher = '';
   let m_norm_product = '';
+  let m_norm_edition = '';
   let m_license = false;
 
   let refId = null;
@@ -108,10 +109,10 @@ function main(content, options) {
   let ref = cts.search(
     cts.andQuery([
       cts.collectionQuery('I_Inventory_Reference'),
-      cts.jsonPropertyValueQuery('SCCM_PRODUCT_ID', m_id, 'case-insensitive'),
-      cts.jsonPropertyValueQuery('SCCM_PUBLISHER', m_publisher, 'case-insensitive'),
-      cts.jsonPropertyValueQuery('SCCM_PRODUCT', m_product, 'case-insensitive'),
-      cts.jsonPropertyValueQuery('SCCM_VERSION', m_version, 'case-insensitive'),
+      cts.jsonPropertyRangeQuery('SCCM_PRODUCT_ID', '=', m_id, 'collation=http://marklogic.com/collation/en/S1'),
+      cts.jsonPropertyRangeQuery('SCCM_PUBLISHER', '=', m_publisher, 'collation=http://marklogic.com/collation/en/S1'),
+      cts.jsonPropertyRangeQuery('SCCM_PRODUCT', '=', m_product, 'collation=http://marklogic.com/collation/en/S1'),
+      cts.jsonPropertyRangeQuery('SCCM_VERSION', '=', m_version, 'collation=http://marklogic.com/collation/en/S1')
     ])
   );
   if (!fn.empty(ref)) {
@@ -120,6 +121,7 @@ function main(content, options) {
     match_rule = 'Ref_Products: Match on product id, publisher, product and version';
     m_norm_publisher = ref.root.envelope.instance.NORM_PUBLISHER;
     m_norm_product = ref.root.envelope.instance.NORM_PRODUCT;
+    m_norm_edition = ref.root.envelope.instance.NORM_EDITION;
     m_license = ref.root.envelope.instance.L == 'Y';
   }
 
@@ -128,9 +130,9 @@ function main(content, options) {
     ref = cts.search(
       cts.andQuery([
         cts.collectionQuery('I_Inventory_Reference'),
-        cts.jsonPropertyValueQuery('SCCM_PUBLISHER', m_publisher, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_PRODUCT', m_product, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_VERSION', m_version, 'case-insensitive'),
+        cts.jsonPropertyRangeQuery('SCCM_PUBLISHER', '=', m_publisher, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyRangeQuery('SCCM_PRODUCT', '=', m_product, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyRangeQuery('SCCM_VERSION', '=', m_version, 'collation=http://marklogic.com/collation/en/S1')
       ])
     );
     if (!fn.empty(ref)) {
@@ -139,6 +141,7 @@ function main(content, options) {
       match_rule = 'UNQ_Publisher_Product_Version: Match on publisher, product and version';
       m_norm_publisher = ref.root.envelope.instance.NORM_PUBLISHER;
       m_norm_product = ref.root.envelope.instance.NORM_PRODUCT;
+      m_norm_edition = ref.root.envelope.instance.NORM_EDITION;
       m_license = ref.root.envelope.instance.L == 'Y';
     }
   }
@@ -148,9 +151,9 @@ function main(content, options) {
     ref = cts.search(
       cts.andQuery([
         cts.collectionQuery('I_Inventory_Reference'),
-        cts.jsonPropertyValueQuery('SCCM_PUBLISHER', m_publisher, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_PRODUCT', m_product, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_VERSION', m_major + '.' + m_minor + '*', ['case-insensitive', 'wildcarded']),
+        cts.jsonPropertyRangeQuery('SCCM_PUBLISHER', '=', m_publisher, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyRangeQuery('SCCM_PRODUCT', '=', m_product, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyValueQuery('SCCM_VERSION', m_major + '.' + m_minor + '*', 'wildcarded')
       ])
     );
     if (!fn.empty(ref)) {
@@ -159,6 +162,7 @@ function main(content, options) {
       match_rule = 'UNQ_Publisher_Product_MAJOR_MINOR_Version: Match on publisher, product and on major and minor version';
       m_norm_publisher = ref.root.envelope.instance.NORM_PUBLISHER;
       m_norm_product = ref.root.envelope.instance.NORM_PRODUCT;
+      m_norm_edition = ref.root.envelope.instance.NORM_EDITION;
       m_license = ref.root.envelope.instance.L == 'Y';
     }
   }
@@ -168,9 +172,9 @@ function main(content, options) {
     ref = cts.search(
       cts.andQuery([
         cts.collectionQuery('I_Inventory_Reference'),
-        cts.jsonPropertyValueQuery('SCCM_PUBLISHER', m_publisher, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_PRODUCT', m_product, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_VERSION', m_major + '*', ['case-insensitive', 'wildcarded']),
+        cts.jsonPropertyRangeQuery('SCCM_PUBLISHER', '=', m_publisher, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyRangeQuery('SCCM_PRODUCT', '=', m_product, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyValueQuery('SCCM_VERSION', m_major + '*', 'wildcarded')
       ])
     );
     if (!fn.empty(ref)) {
@@ -179,6 +183,7 @@ function main(content, options) {
       match_rule = 'UNQ_Publisher_Product_MAJOR_Version: Match on publisher, product and on major version';
       m_norm_publisher = ref.root.envelope.instance.NORM_PUBLISHER;
       m_norm_product = ref.root.envelope.instance.NORM_PRODUCT;
+      m_norm_edition = ref.root.envelope.instance.NORM_EDITION;
       m_license = ref.root.envelope.instance.L == 'Y';
     }
   }
@@ -188,8 +193,8 @@ function main(content, options) {
     ref = cts.search(
       cts.andQuery([
         cts.collectionQuery('I_Inventory_Reference'),
-        cts.jsonPropertyValueQuery('SCCM_PUBLISHER', m_publisher, 'case-insensitive'),
-        cts.jsonPropertyValueQuery('SCCM_PRODUCT', m_product, 'case-insensitive'),
+        cts.jsonPropertyRangeQuery('SCCM_PUBLISHER', '=', m_publisher, 'collation=http://marklogic.com/collation/en/S1'),
+        cts.jsonPropertyRangeQuery('SCCM_PRODUCT', '=', m_product, 'collation=http://marklogic.com/collation/en/S1')
       ])
     );
     if (!fn.empty(ref)) {
@@ -207,7 +212,7 @@ function main(content, options) {
     ref = cts.search(
       cts.andQuery([
         cts.collectionQuery('I_Inventory_Reference'),
-        cts.jsonPropertyValueQuery('SCCM_PUBLISHER', m_publisher, 'case-insensitive'),
+        cts.jsonPropertyRangeQuery('SCCM_PUBLISHER', '=', m_publisher, 'collation=http://marklogic.com/collation/en/S1')
       ])
     );
     if (!fn.empty(ref)) {
@@ -220,8 +225,20 @@ function main(content, options) {
     }
   }
 
+  // Generate a full product string
+  let m_full_product = m_norm_publisher + ' ' + m_norm_product + ' ' + m_norm_edition + ' ' + m_major;
+
   // Generate a unique docId
   let docId = '/Inventory/' + sem.uuidString() + '.json';
+
+  // Create the fields information for domain experts
+  var m_fields = new Array();
+  if (m_relevant == true) {
+    m_fields.push ('RELEVANT');
+  }
+  if (m_license == true) {
+    m_fields.push ('LICENSABLE');
+  }
 
   // Create the instance data
   instance = {
@@ -247,7 +264,10 @@ function main(content, options) {
       "minor": m_minor,
       "norm_publisher": m_norm_publisher,
       "norm_product": m_norm_product,
-      "license": m_license
+      "norm_edition": m_norm_edition,
+      "full_product": m_full_product,
+      "license": m_license,
+      "fields": m_fields
     }
   };
 

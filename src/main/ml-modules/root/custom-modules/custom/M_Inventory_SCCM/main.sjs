@@ -130,17 +130,24 @@ function main(content, options) {
   let m_relevant = false;
   let match_rule = '';
   let refId = null;
-  let products = fn.collection('I_Relevant_Products');
+  // Perform a smart search on the loopup data, relevance ordered, so we can break out the loop quickly!
+  let products = cts.search(
+    cts.andQuery([
+      cts.collectionQuery('I_Relevant_Products'),
+      cts.jsonPropertyWordQuery('PUBLISHER', fn.tokenize(m_publisher, ' '), ['case-insensitive']),
+      cts.jsonPropertyWordQuery('PRODUCT', fn.tokenize(m_product, ' '), ['case-insensitive'])
+    ])
+  );
   for (ref of products) {
     publisher = ref.root.envelope.instance.PUBLISHER;
     product = ref.root.envelope.instance.PRODUCT;
-    let exclude = fn.tokenize(ref.root.envelope.instance.EXCLUDE, '~');
     if (fn.contains(fn.lowerCase(m_publisher), fn.lowerCase(publisher)) && fn.contains(fn.lowerCase(m_product), fn.lowerCase(product))) {
       // There's a match on publisher and product
       m_relevant = true;
       match_rule = 'RELEVANT_PRODUCT: Match on publisher and product';
       refId = fn.baseUri(ref);
       // Now check if it shouldn't be excluded
+      let exclude = fn.tokenize(ref.root.envelope.instance.EXCLUDE, '~');
       for (var e of exclude) {
         if (fn.contains(fn.lowerCase(m_product), fn.lowerCase(e))) {
           m_relevant = false;

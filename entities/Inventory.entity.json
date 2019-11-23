@@ -7,7 +7,7 @@
   },
   "definitions" : {
     "Inventory" : {
-      "primaryKey" : "id",
+      "primaryKey" : "docid",
       "required" : [ ],
       "pii" : [ ],
       "elementRangeIndex" : [ ],
@@ -85,10 +85,28 @@
           "description" : "Product name from inventory reference data (IP)",
           "collation" : "http://marklogic.com/collation/codepoint"
         },
+        "norm_edition" : {
+          "datatype" : "string",
+          "description" : "Edition name from inventory reference data (IP)",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "full_product" : {
+          "datatype" : "string",
+          "description" : "Concatenation from norm_publisher, norm_product, norm_edition and major",
+          "collation" : "http://marklogic.com/collation/codepoint"
+        },
         "license" : {
           "datatype" : "boolean",
           "description" : "Is this package licensable according to inventory reference data (IP)",
           "collation" : "http://marklogic.com/collation/codepoint"
+        },
+        "fields" : {
+          "datatype" : "array",
+          "description" : "Special searchable fields for domain experts",
+          "items" : {
+            "datatype" : "string",
+            "collation" : "http://marklogic.com/collation/codepoint"
+          }
         }
       }
     }

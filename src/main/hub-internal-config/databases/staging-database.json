@@ -4,5 +4,46 @@
   "triggers-database": "%%mlStagingTriggersDbName%%",
   "triple-index": true,
   "collection-lexicon": true,
-  "uri-lexicon": true
+  "uri-lexicon": true,
+  "stemmed-searches": "off",
+  "word-searches": true,
+  "word-positions": false,
+  "fast-phrase-searches": false,
+  "fast-case-sensitive-searches": true,
+  "fast-diacritic-sensitive-searches": false,
+  "fast-element-word-searches": true,
+  "element-word-positions": false,
+  "fast-element-phrase-searches": false,
+  "element-value-positions": false,
+  "range-element-index": [
+    {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_PRODUCT_ID",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_PUBLISHER",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_PRODUCT",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/en/S1",
+      "namespace-uri": "",
+      "localname": "SCCM_VERSION",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }
+  ]
 }

@@ -7,7 +7,7 @@
   },
   "definitions" : {
     "Inventory_SCCM" : {
-      "primaryKey" : "id",
+      "primaryKey" : "docid",
       "required" : [ ],
       "pii" : [ ],
       "elementRangeIndex" : [ ],

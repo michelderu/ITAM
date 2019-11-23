@@ -1,0 +1,22 @@
+{
+  "lang" : "zxx",
+  "name" : "M_Contracts",
+  "description" : "",
+  "type" : "CUSTOM",
+  "version" : 2,
+  "options" : {
+    "additionalCollections" : [ ],
+    "sourceQuery" : "cts.collectionQuery([\"I_Contracts\"])",
+    "targetEntity" : "",
+    "collections" : [ "M_Contracts" ],
+    "sourceDatabase" : "data-hub-STAGING",
+    "sourceCollection" : "I_Contracts",
+    "outputFormat" : "xml",
+    "targetDatabase" : "data-hub-FINAL"
+  },
+  "customHook" : { },
+  "modulePath" : "/custom-modules/custom/M_Contracts/main.sjs",
+  "retryLimit" : 0,
+  "batchSize" : 100,
+  "threadCount" : 4
+}

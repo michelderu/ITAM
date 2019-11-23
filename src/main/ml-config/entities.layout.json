@@ -7,15 +7,15 @@
     "vertices" : { }
   },
   "Inventory" : {
-    "x" : 1008,
-    "y" : 92,
-    "width" : 410,
-    "height" : 456,
+    "x" : 986,
+    "y" : 93,
+    "width" : 454,
+    "height" : 526,
     "vertices" : { }
   },
   "Inventory_SCCM" : {
-    "x" : 565,
-    "y" : 92,
+    "x" : 556,
+    "y" : 93,
     "width" : 387,
     "height" : 387,
     "vertices" : { }
