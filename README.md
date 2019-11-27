@@ -36,7 +36,7 @@ java -jar marklogic-datahub-5.0.4.war
 Now point your browser to http://localhost:8080 and finish the installation using the ITAM project root directory (you might have to uninstall/re-install).
 
 ### Configure input folder paths for data to be ingested
-In directory `/flows` update the json documents so that all `inputFilePath` references reflect the correct folder in your setup.
+In directory `flows` update the json documents so that all `inputFilePath` references reflect the correct folder in your setup.
 
 ### Run the ITAM analysis
 First, click 'Settings' and turn of 'Flow tracing'. Or use the gradle command `gradle hubDisableTracing`.  
@@ -134,6 +134,9 @@ sudo yum install libgcc libgcc.i686 libstdc++ libstdc++.i686
 sudo rpm -i /tmp/MarkLogicConverters.rpm
 ```
 
+### Entity enrichment
+To really get added value out of the unstructured documents, it is important to enrich the doucuments and find/name entities. In this case, we'll go searching for entities like Publisher and Product. In order to do this, we need a dictionary of relevant information, this dictionary can be created out of the Canonical Inventory entity. Following that, the entities can be found and enriched. All of this takes place in `src/main/ml-modules/root/custom-modules/custom/M_Contracts/main.sjs`.
+
 ## Connecting to a BI solution like Tableau or PowerBI
 During installation of the Data Hub Framework an ODBC port has been configured on port 8014, linked to the data-hub-FINAL database. This allows for SQL over ODBC to query the database and it's generated Instances.  
 For ODBC to work, the ODBC driver had to be downloaded and installed from http://develop.marklogic.com.  
@@ -147,29 +150,29 @@ password: ...
 ```
 
 ## Connecting to a Web Front End
-We use GROVE for creating a Web Front End on top of the data-hub-FINAL database. GROVE is installed in the folder `./ITAM-UI'.
+We use GROVE for creating a Web Front End on top of the data-hub-FINAL database. GROVE is installed in the folder `ITAM-UI'.
 
 ### Install the supporting code into MarkLogic Server
 ```sh
-cd ./ITAM-UI/marklogic
+cd ITAM-UI/marklogic
 gradle mlDeploy
 ```
 
 ### Install the node dependencies
 ```sh
-cd ./ITAM-UI
+cd ITAM-UI
 npm install
 ```
 
 ### Start Grove
 ```sh
-cd ./ITAM-UI
+cd ITAM-UI
 npm start
 ```
 And point your browser to http://localhost:3000
 
 ### Facetting
-The facets within the ITAM-UI have been set up based on range index. For this the following range indexes had to be configured in `src/main/ml-config/databases/final-database.json`:
+The facets within the ITAM-UI have been set up based on range indexes in the data-hub-FINAL database. For this the following range indexes had to be configured in `src/main/ml-config/databases/final-database.json`:
 ```sh
   "range-element-index": [
     {

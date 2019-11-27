@@ -5,6 +5,7 @@
 *.zip
 *.pdf
 *.TIF
+*.log
 .DS_Store
 /MarkLogic/
 /build/
