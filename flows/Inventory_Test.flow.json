@@ -142,7 +142,7 @@
         "additionalCollections" : [ ],
         "sourceQuery" : "cts.collectionQuery([\"M_Inventory_SCCM\"])",
         "targetEntity" : "Inventory",
-        "collections" : [ "M_Inventory", "Inventory" ],
+        "collections" : [ "Inventory" ],
         "sourceDatabase" : "data-hub-STAGING",
         "sourceCollection" : "M_Inventory_SCCM",
         "outputFormat" : "json",

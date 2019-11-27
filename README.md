@@ -133,3 +133,149 @@ curl --output /tmp/MarkLogicConverters.rpm <the url you get from developer.markl
 sudo yum install libgcc libgcc.i686 libstdc++ libstdc++.i686
 sudo rpm -i /tmp/MarkLogicConverters.rpm
 ```
+
+## Connecting to a BI solution like Tableau or PowerBI
+During installation of the Data Hub Framework an ODBC port has been configured on port 8014, linked to the data-hub-FINAL database. This allows for SQL over ODBC to query the database and it's generated Instances.  
+For ODBC to work, the ODBC driver had to be downloaded and installed from http://develop.marklogic.com.  
+After installation, point your favorite BI tool to a freshly created DSN and you're good to go. DSN settings as follows:
+```sh
+server: localhost
+port: 8014
+database: data-hub-FINAL
+username: admin
+password: ...
+```
+
+## Connecting to a Web Front End
+We use GROVE for creating a Web Front End on top of the data-hub-FINAL database. GROVE is installed in the folder `./ITAM-UI'.
+
+### Install the supporting code into MarkLogic Server
+```sh
+cd ./ITAM-UI/marklogic
+gradle mlDeploy
+```
+
+### Install the node dependencies
+```sh
+cd ./ITAM-UI
+npm install
+```
+
+### Start Grove
+```sh
+cd ./ITAM-UI
+npm start
+```
+And point your browser to http://localhost:3000
+
+### Facetting
+The facets within the ITAM-UI have been set up based on range index. For this the following range indexes had to be configured in `src/main/ml-config/databases/final-database.json`:
+```sh
+  "range-element-index": [
+    {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "norm_publisher",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "norm_product",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "relevant",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "license",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "int",
+      "namespace-uri": "",
+      "localname": "major",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "int",
+      "namespace-uri": "",
+      "localname": "minor",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }
+  ]
+  ```
+  Additionally, the following search options had to be defined in `ITAM-UI/marklogic/ml-modules/options/all.xml`:
+  ```sh
+    <constraint name="Publisher">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <facet-option>limit=10</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <element ns="" name="norm_publisher"/>
+    </range>
+  </constraint>
+  
+   <constraint name="Product">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <facet-option>limit=10</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <element ns="" name="norm_product"/>
+    </range>
+  </constraint>
+
+  <constraint name="Relevant">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <facet-option>limit=5</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <element ns="" name="relevant"/>
+    </range>
+  </constraint>
+
+  <constraint name="Licensable">
+    <range type="xs:string" facet="true" collation="http://marklogic.com/collation/codepoint">
+      <facet-option>limit=5</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <element ns="" name="license"/>
+    </range>
+  </constraint>
+
+  <constraint name="Major">
+    <range type="xs:int" facet="true">
+      <facet-option>limit=5</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <element ns="" name="major"/>
+    </range>
+  </constraint>
+
+  <constraint name="Minor">
+    <range type="xs:int" facet="true">
+      <facet-option>limit=5</facet-option>
+      <facet-option>frequency-order</facet-option>
+      <facet-option>descending</facet-option>
+      <element ns="" name="minor"/>
+    </range>
+  </constraint>
+```
+
+### Workaround for security setting of Grove in combination with DHF
+In `ITAM-UI/marklogic/build.gradle` comment out the following lines of code and upgrade the mlcp version to match MarkLogic Server:
+```sh
+mlcp "com.marklogic:mlcp:10.0.2"
+//mlLoadSchemas.finalizedBy setSchemasPermissions
+//mlDeploy.finalizedBy setSchemasPermissions
+```

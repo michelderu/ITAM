@@ -76,7 +76,63 @@ function main(content, options) {
   // instance['$attachments'] = doc;
 
   //insert code to manipulate the instance, triples, headers, uri, context metadata, etc.
-  instance = xdmp.documentFilter(doc);
+  let filteredDoc = xdmp.documentFilter(doc);
+  //let filteredDoc = xdmp.pdfConvert(doc, sem.uuidString());
+
+  // Get all publishers
+  let jsPublishers = `
+  var op = require("/MarkLogic/optic");
+  let publishers = op.fromView('Inventory', 'Inventory')
+  .where(
+    op.and(
+      op.eq(op.col("relevant"), true),
+      op.ne(op.col('norm_publisher'), 'null')
+    )
+  )
+  .select(['norm_publisher'])
+  .result();
+  fn.distinctValues(publishers);
+  `;
+  let publishers = xdmp.eval(jsPublishers, null, {"database" : xdmp.database("data-hub-FINAL")});
+  console.log(publishers);
+
+  // Get all products
+  let jsProducts = `
+  var op = require("/MarkLogic/optic");
+  let products = op.fromView('Inventory', 'Inventory')
+  .where(
+    op.and(
+      op.eq(op.col("relevant"), true),
+      op.ne(op.col('norm_product'), 'null')
+    )
+  )
+  .select(['norm_product'])
+  .result();
+  fn.distinctValues(products);
+  `;
+  let products = xdmp.eval(jsProducts, null, {"database" : xdmp.database("data-hub-FINAL")});
+  console.log(products);
+
+  // Build up an entity array
+  let entities = new Array();
+  for (var p of publishers) {
+    entities.push(cts.entity(sem.uuidString(), p['Inventory.Inventory.norm_publisher'], p['Inventory.Inventory.norm_publisher'], 'norm_publisher'));
+  }
+  for (var p of products) {
+    entities.push(cts.entity(sem.uuidString(), p['Inventory.Inventory.norm_product'], p['Inventory.Inventory.norm_product'], 'norm_product'));
+  }
+  let dictionary = cts.entityDictionary(entities);
+
+  // Find the entities
+  let resultBuilder = new NodeBuilder();
+  cts.entityHighlight(filteredDoc,
+    function(builder, entityType, text, normText, entityId, node, start) {
+      if (text != '') {
+        builder.addElement(fn.replace(entityType, ':| ', '-'), text, '');
+      } 
+    },
+    resultBuilder, dictionary);
+  instance = resultBuilder.toNode();
 
   //form our envelope here now, specifying our output format
   let envelope = datahub.flow.flowUtils.makeEnvelope(instance, headers, triples, outputFormat);

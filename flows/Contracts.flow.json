@@ -48,7 +48,7 @@
         "additionalCollections" : [ ],
         "sourceQuery" : "cts.collectionQuery([\"I_Contracts\"])",
         "targetEntity" : "",
-        "collections" : [ "M_Contracts" ],
+        "collections" : [ "Contracts" ],
         "sourceDatabase" : "data-hub-STAGING",
         "sourceCollection" : "I_Contracts",
         "outputFormat" : "xml",

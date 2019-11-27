@@ -4,5 +4,48 @@
   "triggers-database": "%%mlFinalTriggersDbName%%",
   "triple-index": true,
   "collection-lexicon": true,
-  "uri-lexicon": true
+  "uri-lexicon": true,
+  "range-element-index": [
+    {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "norm_publisher",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "norm_product",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "relevant",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "string",
+      "collation": "http://marklogic.com/collation/codepoint",
+      "namespace-uri": "",
+      "localname": "license",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "int",
+      "namespace-uri": "",
+      "localname": "major",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }, {
+      "scalar-type": "int",
+      "namespace-uri": "",
+      "localname": "minor",
+      "range-value-positions": false,
+      "invalid-values": "ignore"
+    }
+  ]
 }
